@@ -1,0 +1,23 @@
+# Usar a imagem do SDK do .NET para executar migrações
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS migration
+WORKDIR /app
+
+# Copiar os arquivos de projeto .csproj
+COPY ../CashFlowInfra/CashFlowInfra.csproj ./CashFlowInfra/
+COPY ../CashFlowControl/CashFlowControl.csproj ./CashFlowControl/
+
+# Restaurar dependências
+RUN dotnet restore ./CashFlowControl/CashFlowControl.csproj
+
+# Copiar o código restante
+COPY ../CashFlowInfra/ ./CashFlowInfra/
+COPY ../CashFlowControl/ ./CashFlowControl/
+
+# Instalar dotnet-ef globalmente no contêiner de migração
+RUN dotnet tool install --global dotnet-ef
+ENV PATH="${PATH}:/root/.dotnet/tools"
+
+ENV ASPNETCORE_ENVIRONMENT="Production"
+
+# Executar as migrações
+CMD ["dotnet", "ef", "database", "update", "--project", "CashFlowControl/CashFlowControl.csproj"]

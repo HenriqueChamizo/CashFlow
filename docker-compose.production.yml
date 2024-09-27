@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  cashflowauth:
+    container_name: cashflow_auth
+    build:
+      context: ./CashFlowAuth
+      dockerfile: Dockerfile
+    ports:
+      - "5135:8080"
+    networks:
+      - monitor-network
+      - cashflow-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  cashflowreport:
+    container_name: cashflow_report
+    build:
+      context: .
+      dockerfile: ./CashFlowReport/Dockerfile
+    ports:
+      - "5132:8080"
+    networks:
+      - monitor-network
+      - cashflow-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+  cashflowcontrol:
+    container_name: cashflow_control
+    build:
+      context: .
+      dockerfile: ./CashFlowControl/Dockerfile
+    ports:
+      - "5123:8080"
+    networks:
+      - monitor-network
+      - cashflow-network
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+
+volumes:
+  postgres_data:
+    name: cashflow-postgres_data
+    external: true
+
+networks:
+  cashflow-network:
+    name: cashflow-network
+    driver: bridge
+    external: true
+  monitor-network:
+    name: monitor-network
+    driver: bridge
+    external: true

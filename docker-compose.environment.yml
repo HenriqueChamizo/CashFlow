@@ -1,0 +1,52 @@
+version: '3.8'
+
+services:
+  prometheus:
+    container_name: cashflow_prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090"
+    networks:
+      - monitor-network
+
+  grafana:
+    container_name: cashflow_grafana
+    image: grafana/grafana:latest
+    ports:
+      - "3000:3000"
+    networks:
+      - monitor-network
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
+
+  postgres-db:
+    image: postgres:14
+    container_name: cashflow_postgres_db
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: rootpassword
+      POSTGRES_DB: cashflowdb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - cashflow-network
+
+volumes:
+  postgres_data:
+    name: cashflow-postgres_data
+
+networks:
+  cashflow-network:
+    name: cashflow-network
+    driver: bridge
+  monitor-network:
+    name: monitor-network
+    driver: bridge
