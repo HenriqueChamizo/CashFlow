@@ -1,4 +1,9 @@
 
+Esta faltando
+- Swagger
+- Postman
+- Desenho da execução
+- CURL para teste rápido
 
 # CashFlow Application 🚀
 
