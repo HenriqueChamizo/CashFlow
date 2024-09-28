@@ -59,14 +59,15 @@ services.AddControllers();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
+
+if (!app.Environment.IsProduction())
 {
     app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
-if (environment != "Production")
-{
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "CashFlowControl API v1");
+        c.RoutePrefix = string.Empty;
+    });
     app.UseMetricServer(); 
     app.UseHttpMetrics();
 }

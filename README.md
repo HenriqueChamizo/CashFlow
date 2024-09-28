@@ -1,4 +1,24 @@
+<p align="center">
+  <a href="https://github.com/henriquechamizo/cashflow" target="blank"><img src="./docs/image.png" width="250" alt="CashFlow Logo" /></a>
+</p>
 
+<p align="center">Uma aplicação eficiente e escalável para gestão de fluxo de caixa.</p>
+
+<p align="center">
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/.NET Core-512BD4" alt="Dotnet Core" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Docker Compose-2496ED" alt="Docker Compose" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Application Insights-68217A" alt="Application Insights" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/PostgreSQL-336791" alt="PostgreSQL" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Kubernetes-326CE5" alt="Kubernetes" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/HAProxy-106DA9" alt="HAProxy" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Prometheus-E6522C" alt="Prometheus" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Grafana-F46800" alt="Grafana" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/RabbitMQ-FF6600" alt="RabbitMQ" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Redis-DC382D" alt="Redis" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/NGINX-009639" alt="NGINX" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Patroni-FFCC00" alt="Patroni" /></a>
+  <a href="https://github.com/henriquechamizo/cashflow" target="_blank"><img src="https://img.shields.io/badge/Loki-F6C915" alt="Loki" /></a>
+</p>
 
 # CashFlow Application 🚀
 
@@ -279,6 +299,39 @@ Comandos:
 ### 💾 **CashFlowInfra**
 - Contém código compartilhado entre os sistemas de Controle e Relatório.
 - **TODO:** Criar modelos de usuários, acessos e permissões para melhorar o serviço de autenticação.
+
+
+---
+
+## Swagger e Postman 📋
+
+### **Documentação da API com Swagger**
+O **Swagger** foi configurado para gerar automaticamente a documentação da API e permitir a interação com os endpoints protegidos por autenticação JWT.
+
+#### **Acessar o Swagger:**
+- **Importante:** O Swagger está disponível apenas em **ambientes de desenvolvimento**. Ele não será exibido quando a aplicação estiver rodando em **produção**.
+  
+  URLs do Swagger em ambiente de desenvolvimento:
+  - **CashFlowAuth**: `http://localhost:5135/swagger`
+  - **CashFlowControl**: `http://localhost:5123/swagger`
+  - **CashFlowReport**: `http://localhost:5209/swagger`
+
+#### **Autenticação via JWT no Swagger:**
+1. Gere o token JWT através do serviço de autenticação (**CashFlowAuth**).
+2. No Swagger, clique em **Authorize** no topo da página.
+3. Insira o token no seguinte formato:
+   ```
+   Bearer <seu_token_jwt>
+   ```
+
+### **Coleção do Postman**
+Para facilitar o teste e interação com os endpoints da aplicação, você pode importar uma **coleção do Postman** que já contém as rotas configuradas, incluindo a autenticação JWT.
+
+#### **Importar Coleção do Postman:**
+1. Baixe e importe a coleção JSON no Postman:
+   - [CashFlow Postman Collection](./docs/postman-collection.json)
+2. Edite a variável de ambiente **JWT** no Postman para incluir o token de autenticação, ou gere um novo token via **CashFlowAuth**.
+3. Execute as requisições diretamente pelo Postman.
 
 ---
 
