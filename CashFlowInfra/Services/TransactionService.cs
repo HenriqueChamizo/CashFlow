@@ -67,10 +67,10 @@ namespace CashFlowInfra.Services
             var query = _context.Transactions.AsQueryable();
 
             if (StartDate.HasValue)
-                query = query.Where(t => t.Date.Date >= StartDate.Value.Date);  // Usar .Date para comparar apenas a data
+                query = query.Where(t => t.Date.Date >= StartDate.Value.Date);
     
             if (EndDate.HasValue)
-                query = query.Where(t => t.Date.Date <= EndDate.Value.Date);    // Usar .Date para comparar apenas a data
+                query = query.Where(t => t.Date.Date <= EndDate.Value.Date);
     
             return await query.ToListAsync();
         }

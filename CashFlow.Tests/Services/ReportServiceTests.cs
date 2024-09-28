@@ -25,7 +25,6 @@ namespace CashFlowReport.Tests.Services
         [Fact]
         public async Task GenerateTransactionReport_ShouldReturnTransactions()
         {
-            // Arrange
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 31);
             var mockTransactions = new List<Transaction>
@@ -37,10 +36,8 @@ namespace CashFlowReport.Tests.Services
             _mockTransactionService.Setup(s => s.GetReportTransactions(startDate, endDate))
                                    .ReturnsAsync(mockTransactions);
 
-            // Act
             var result = await _reportService.GenerateTransactionReport(startDate, endDate);
 
-            // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal(mockTransactions, result);
         }
@@ -48,7 +45,6 @@ namespace CashFlowReport.Tests.Services
         [Fact]
         public async Task GenerateDailyBalanceReport_ShouldReturnCorrectBalances()
         {
-            // Arrange
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 31);
             var mockTransactions = new List<Transaction>
@@ -62,10 +58,8 @@ namespace CashFlowReport.Tests.Services
             _mockTransactionService.Setup(s => s.GetReportTransactions(startDate, endDate))
                                    .ReturnsAsync(mockTransactions);
 
-            // Act
             var result = await _reportService.GenerateDailyBalanceReport(startDate, endDate);
 
-            // Assert
             Assert.Equal(2, result.Count);
             Assert.Equal(new DateTime(2024, 1, 10), result[0].Date);
             Assert.Equal(100, result[0].TotalCredits);
@@ -81,32 +75,26 @@ namespace CashFlowReport.Tests.Services
         [Fact]
         public async Task GenerateTransactionReport_ShouldReturnEmpty_WhenNoTransactionsFound()
         {
-            // Arrange
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 31);
             _mockTransactionService.Setup(s => s.GetReportTransactions(startDate, endDate))
                                    .ReturnsAsync(new List<Transaction>());
 
-            // Act
             var result = await _reportService.GenerateTransactionReport(startDate, endDate);
 
-            // Assert
             Assert.Empty(result);
         }
 
         [Fact]
         public async Task GenerateDailyBalanceReport_ShouldReturnEmpty_WhenNoTransactionsFound()
         {
-            // Arrange
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 31);
             _mockTransactionService.Setup(s => s.GetReportTransactions(startDate, endDate))
                                    .ReturnsAsync(new List<Transaction>());
 
-            // Act
             var result = await _reportService.GenerateDailyBalanceReport(startDate, endDate);
 
-            // Assert
             Assert.Empty(result);
         }
     }

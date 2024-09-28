@@ -22,11 +22,9 @@ namespace CashFlowReport.Tests.Controllers
             _controller = new ReportController(_mockReportService.Object);
         }
 
-        // Teste para verificar se o relatório de transações é gerado com sucesso
         [Fact]
         public async Task GetTransactionReport_ShouldReturnOk_WhenDatesAreProvided()
         {
-            // Arrange
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 31);
             var reportData = new List<Transaction>
@@ -37,33 +35,26 @@ namespace CashFlowReport.Tests.Controllers
             _mockReportService.Setup(s => s.GenerateTransactionReport(startDate, endDate))
                 .ReturnsAsync(reportData);
 
-            // Act
             var result = await _controller.GetTransactionReport(startDate, endDate) as OkObjectResult;
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(200, result.StatusCode);
             Assert.Equal(reportData, result.Value);
         }
 
-        // Teste para verificar o retorno de BadRequest quando as datas não são fornecidas
         [Fact]
         public async Task GetTransactionReport_ShouldReturnBadRequest_WhenStartDateOrEndDateIsMissing()
         {
-            // Act
             var result = await _controller.GetTransactionReport(null, new DateTime(2024, 1, 31)) as BadRequestObjectResult;
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(400, result.StatusCode);
             Assert.Equal("Start date and end date are required.", result.Value);
         }
 
-        // Teste para verificar se o relatório de saldo diário é gerado com sucesso
         [Fact]
         public async Task GetDailyBalanceReport_ShouldReturnOk_WhenDatesAreProvided()
         {
-            // Arrange
             var startDate = new DateTime(2024, 1, 1);
             var endDate = new DateTime(2024, 1, 31);
             var reportData = new List<DailyBalanceResult>
@@ -80,23 +71,18 @@ namespace CashFlowReport.Tests.Controllers
             _mockReportService.Setup(s => s.GenerateDailyBalanceReport(startDate, endDate))
                 .ReturnsAsync(reportData);
 
-            // Act
             var result = await _controller.GetDailyBalanceReport(startDate, endDate) as OkObjectResult;
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(200, result.StatusCode);
             Assert.Equal(reportData, result.Value);
         }
 
-        // Teste para verificar o retorno de BadRequest quando as datas não são fornecidas no relatório de saldo diário
         [Fact]
         public async Task GetDailyBalanceReport_ShouldReturnBadRequest_WhenStartDateOrEndDateIsMissing()
         {
-            // Act
             var result = await _controller.GetDailyBalanceReport(null, new DateTime(2024, 1, 31)) as BadRequestObjectResult;
 
-            // Assert
             Assert.NotNull(result);
             Assert.Equal(400, result.StatusCode);
             Assert.Equal("Start date and end date are required.", result.Value);
