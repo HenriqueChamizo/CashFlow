@@ -329,7 +329,7 @@ Para facilitar o teste e interação com os endpoints da aplicação, você pode
 
 #### **Importar Coleção do Postman:**
 1. Baixe e importe a coleção JSON no Postman:
-   - [CashFlow Postman Collection](./docs/postman-collection.json)
+   - [CashFlow Postman Collection](./docs/postman/CashFlow.postman_collection.json)
 2. Edite a variável de ambiente **JWT** no Postman para incluir o token de autenticação, ou gere um novo token via **CashFlowAuth**.
 3. Execute as requisições diretamente pelo Postman.
 
